@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-
-    <title>Combined Pages</title>
+    <title>"Giáng Sinh an lành nhé! 😊"
+    </title>
     <style>
         body {
             margin: 0;
@@ -57,8 +57,8 @@
         }
         #play-button {
             display: block;
-            font-size: 36px; /* Tăng kích thước chữ */
-            padding: 20px 40px; /* Tăng kích thước nút */
+            font-size: 36px; 
+            padding: 20px 40px; 
             background-color: pink;
             color: white;
             border: none;
@@ -70,51 +70,33 @@
             transform: translate(-50%, -50%);
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
             background-image: radial-gradient(white 10%, transparent 11%);
-            background-size: 20px 20px; /* Kích thước chấm bi */
+            background-size: 20px 20px; 
         }
     </style>
 </head>
 <body>
-    <!-- Âm thanh nền -->
     <audio id="background-music" src="christmas.mp3" loop></audio>
-
-    <!-- Nút bật nhạc khi bị chặn -->
     <div class="gradient-background"></div>
     <canvas id="snow-canvas"></canvas>
-   
     <button id="play-button">BẤM VÀO ĐÂY</button>
-
-    <!-- Các iframe -->
     <iframe id="page1" src="page1.html" style="display: none;"></iframe>
     <iframe id="page2" src="page2.html" style="display: none;"></iframe>
-
     <script>
         const audio = document.getElementById('background-music');
-const playButton = document.getElementById('play-button');
-const iframe1 = document.getElementById('page1');
-
-// Đảm bảo nút luôn hiển thị từ đầu
-playButton.style.display = 'block';
-
-// Thêm sự kiện click để phát nhạc
-playButton.addEventListener('click', () => {
-    audio.play(); // Phát nhạc
-    playButton.style.display = 'none'; // Ẩn nút sau khi nhấn
-
-    // Hiển thị iframe và gửi thông báo bắt đầu countdown
-    iframe1.style.display = 'block';
-    iframe1.contentWindow.postMessage('startCountdown', '*');
+        const playButton = document.getElementById('play-button');
+        const iframe1 = document.getElementById('page1');
+        playButton.style.display = 'block';
+        playButton.addEventListener('click', () => {
+            audio.play();
+            playButton.style.display = 'none';
+            iframe1.style.display = 'block';
+            iframe1.contentWindow.postMessage('startCountdown', '*');
 });
-
-        //hiệu ứng tuyết rơi cho trang đầu
         const canvas = document.getElementById('snow-canvas');
         const ctx = canvas.getContext('2d');
-
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
-
         const snowflakes = [];
-
         class Snowflake {
             constructor() {
                 this.x = Math.random() * canvas.width;
@@ -123,7 +105,6 @@ playButton.addEventListener('click', () => {
                 this.speed = Math.random() * 1 + 0.5;
                 this.wind = Math.random() * 0.5 - 0.25;
             }
-
             update() {
                 this.y += this.speed;
                 this.x += this.wind;
@@ -137,7 +118,6 @@ playButton.addEventListener('click', () => {
                     this.x = canvas.width;
                 }
             }
-
             draw() {
                 ctx.beginPath();
                 ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
@@ -146,32 +126,27 @@ playButton.addEventListener('click', () => {
                 ctx.closePath();
             }
         }
-
         function createSnowflakes() {
             for (let i = 0; i < 200; i++) {
                 snowflakes.push(new Snowflake());
             }
         }
-
         function updateSnowflakes() {
             for (let flake of snowflakes) {
                 flake.update();
             }
         }
-
         function drawSnowflakes() {
             for (let flake of snowflakes) {
                 flake.draw();
             }
         }
-
         function animateSnow() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             updateSnowflakes();
             drawSnowflakes();
             requestAnimationFrame(animateSnow);
         }
-
         createSnowflakes();
         animateSnow();
     </script>
